@@ -1,0 +1,345 @@
+<style>
+
+html,
+body {
+  min-width: 290px;
+  color: #4d4e53;
+  background-color: #ffffff;
+  font-family: "Open Sans", Arial, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+#sidebar {
+  position: fixed;
+  min-width: 290px;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100%;
+  border-right: 1px solid rgba(0, 22, 22, 0.4);
+  background-color: #f5f5f5;
+}
+
+h2 {
+  color: #000000;
+  margin: 10px;
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: 400;
+}
+
+#documentation h2 {
+  text-align: left;
+  margin: 0;
+}
+
+#sidebar ul {
+  height: calc(100% - 60px);
+  padding: 0;
+  overflow-y: auto;
+}
+
+#sidebar li {
+  color: #4d4e53;
+  border-top: 1px solid #ccc;
+  list-style: none;
+}
+
+#sidebar .nav-item {
+  display: block;
+  padding: 10px 30px;
+  color: #4d4e53;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#documentation {
+  margin-left: 300px;
+  padding: 20px;
+  margin-bottom: 110px;
+}
+
+section article {
+  color: #4d4e53;
+  margin: 15px;
+  font-size: 1em;
+}
+
+section li {
+  margin: 15px 0 0 20px;
+}
+
+pre {
+  display: block;
+  text-align: left;
+  white-space: pre-line;
+  position: relative;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 2;
+  background-color: #f7f7f7;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.hscroll {
+  overflow-x: auto;
+}
+
+table {
+  caption-side: bottom;
+  border-collapse: collapse;
+}
+
+@media only screen and (max-width: 815px) {
+  /* For mobile phones: */
+  #sidebar ul {
+    height: 207px;
+  }
+
+  #sidebar {
+    background-color: rgb(166, 138, 138);
+
+    top: 20px;
+    padding: 340p;
+    margin: 29;
+    width: 100%;
+    max-height: 5px;
+    border: none;
+    z-index: 1;
+    border-bottom: 2px solid;
+  }
+
+  #documentation {
+    position: relative;
+    margin-left: 0;
+    margin-top: 270px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #documentation {
+    margin-left: -10px;
+  }
+}
+
+.navigation {
+          background-color: greenyellow;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.navigation ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation li {
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.navigation a {
+  display: inline-block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.navigation a:hover {
+  background-color: #e0e0e0;
+  color: #fff;
+}
+
+.navigation .box {
+  background-color: #ffc0cb;
+  padding: 10px;
+}
+footer {
+  background-color: #a49bdc;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-content p {
+  margin: 0;
+}
+
+.footer-content nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-content nav ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.footer-content nav ul li:last-child {
+  margin-right: 0;
+}
+
+.footer-content nav ul li a {
+  text-decoration: none;
+  color: #4d4e53;
+}
+
+.footer-content nav ul li a:hover {
+  text-decoration: underline;
+}
+
+
+</style>
+
+<body>
+  
+
+  <div class="navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="datas.html">Data Analytics</a></li>
+      <li><a href="graphall.html"> Graphical Visualization</a></li>
+      <li><a href="filter.html">Filters and Interactivity</a></li> 
+      <li><a href="about.html">About</a></li>   
+    </ul>
+  </div>
+
+
+
+
+    <nav id="sidebar">
+      <h2>About Multi State Cooperative Societies ACT 2002</h2>
+      <ul>
+        <li><a class="nav-item" href="#Introduction">Purpose and Scope</a></li>
+        <li>
+          <a class="nav-item" href="#html_editors">Registration and Governance:</a>
+        </li>
+        <li>
+          <a class="nav-item" href="#html_elements">Functions and Objectives:</a>
+        </li>
+        <li><a class="nav-item" href="#html_attributes">Rights and Liabilities:</a></li>
+        <li><a class="nav-item" href="#html_heading">Roles and Powers of Authorities:</a></li>
+        <li>
+          <a class="nav-item" href="#html_paragraph">Compliance and Audit</a>
+        </li>
+      </ul>
+    </nav>
+    <main id="documentation">
+      <section id="Introduction">
+        <h2>Purpose and Scope:</h2>
+        <article>
+          <p>
+            The Act aims to provide a legal framework for the establishment and regulation of cooperative societies operating in more than one state.
+            It covers various types of cooperative societies, including credit societies, housing societies, consumer societies, farmer societies, and more.
+          </p>
+          
+      
+        </article>
+      </section>
+      <section id="html_editors">
+        <h2>Registration and Governance:</h2>
+        <article>
+          <p>
+            To form a multi-state cooperative society, it must be registered under the Act with the Central Registrar of Cooperative Societies.
+            The Act provides guidelines for the formation, membership, and governance structure of these societies.
+            Societies are required to adopt democratic principles, hold regular general body meetings, and maintain proper records and accounts.
+          </p>
+          <p>Here is the list of top 4 HTML text editors you can pick:</p>
+  
+      
+        </article>
+      </section>
+      <section id="html_elements">
+        <h2>Functions and Objectives:</h2>
+        <article>
+          <p>
+            Multi-state cooperative societies are formed to promote economic and social welfare activities for their members.
+            They aim to facilitate mutual cooperation, provide financial assistance, promote thrift and savings, and support community development.
+          </p>
+      
+        </article>
+      </section>
+      <section id="html_attributes">
+        <h2>Rights and Liabilities:</h2>
+        <article>
+          <p>
+            Members of multi-state cooperative societies have certain rights, including the right to participate in decision-making, access information, and receive benefits from the society's activities.
+            Members are also liable to contribute to the funds and meet their financial obligations towards the society.
+            <strong> Example </strong>
+          </p>
+          <p>
+            The Act establishes authorities such as the Central Registrar of Cooperative Societies and State Registrars to oversee the functioning and compliance of multi-state cooperative societies.
+            These authorities have the power to conduct inquiries, audit the society's accounts, and take necessary actions for the proper functioning of the societies.
+          </p>
+        </article>
+      </section>
+      <section id="html_heading">
+        <h2>Roles and Powers of Authorities:</h2>
+        <p>
+            Multi-state cooperative societies are required to comply with various statutory provisions, such as filing annual returns, conducting audits, and maintaining proper accounting records.
+            Audits ensure transparency and accountability in the financial operations of the society.
+   
+        </p>
+ 
+      </section>
+      <section id="html_editors">
+        <h2>Compliance and Audit</h2>
+        <article>
+          <p>
+            Multi-state cooperative societies are required to comply with various statutory provisions, such as filing annual returns, conducting audits, and maintaining proper accounting records.
+Audits ensure transparency and accountability in the financial operations of the society.
+Please note that the above information provides a general overview of the Multi-State Cooperative Societies Act, 2002. For specific legal advice or detailed information, it is recommended to consult the Act itself or seek assistance from legal professionals or authorities familiar with cooperative society regulations in India.
+
+
+
+
+
+
+
+          </p>
+        
+  
+      
+        </article>
+      </section>
+      
+  
+      
+    </main>
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; Multi State Cooperative Societies ACT 2002. All rights reserved.</p>
+          <nav>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="about.html">Services</a></li>
+          </nav>
+        </div>
+      </div>
+    </footer>
+    
+  </body>

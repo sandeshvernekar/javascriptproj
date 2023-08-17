@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Filtering</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .navigation {
+  background-color:#ace022;
+  border: 1px solid #cfe38e;
+  padding: 10px;
+}
+
+.navigation ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation li {
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.navigation a {
+  display: inline-block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+
+.navigation a:hover {
+  background-color: #0c0101;
+  color: #fff;
+}
+
+.navigation .box {
+  background-color: #ffc0cb;
+  padding: 10px;
+}
+
+
+.container {
+      background-color: #ace022;
+      text-align: center;
+    }
+
+    label {
+      font-size: 35px;
+      font-weight: bold;
+      color: #86bbca;
+    }
+
+    select {
+      font-size: 24px;
+      padding: 22px;
+      border-radius: 50px;
+      
+    }
+    footer {
+  background-color: #ace022;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-content p {
+  margin: 0;
+}
+
+.footer-content nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-content nav ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.footer-content nav ul li:last-child {
+  margin-right: 0;
+}
+
+.footer-content nav ul li a {
+  text-decoration: none;
+  color: #4d4e53;
+}
+
+.footer-content nav ul li a:hover {
+  text-decoration: underline;
+}
+
+
+
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  
+  <div class="navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="datas.html">Data Analytics</a></li>
+      <li><a href="graphall.html"> Graphical Visualization</a></li>
+      <li><a href="filter.html">Add New Society</a></li>  
+      <li><a href="about.html">About</a></li>  
+    </ul>
+  </div>
+  
+
+<br>
+  <div class="container">
+    <label for="state-filter">Select State:</label>
+    <select id="state-filter">
+      <option value="">All States</option>
+      <option value="Uttar Pradesh">Uttar Pradesh</option>
+      <option value="Kerala">Kerala</option>
+      <option value="Uttarakhand">Uttarakhand</option>
+      <option value="Maharashtra">Maharashtra</option>
+      <option value="Punjab">Punjab</option>
+      <option value="Tamil Nadu">Tamil Nadu</option>
+      <option value="Telangana">Telangana</option>
+      <option value="Haryana">Haryana</option>
+      <option value="Andhra Pradesh">Andhra Pradesh</option>
+      <option value="Karnataka">Karnataka</option>
+      <option value="Gujarat">Gujarat</option>
+      <option value="Rajasthan">Rajasthan</option>
+      <option value="Delhi">Delhi</option>
+      <option value="Manipur">Manipur</option>
+      <option value="West Bengal">West Bengal</option>
+      <!-- Add more options for other states -->
+    </select>
+  </div>
+ <script>
+
+
+
+
+
+
+
+document.getElementById('state-filter').addEventListener('change', function() {
+  var selectedState = this.value;
+  filterTable(selectedState);
+  updateChart();
+});
+
+function filterTable(state) {
+  var rows = document.querySelectorAll('#data-table tbody tr');
+  rows.forEach(function(row) {
+      var stateCell = row.cells[3];
+      if (state === '' || stateCell.textContent.toUpperCase() === state.toUpperCase()) {
+          row.style.display = '';
+      } else {
+          row.style.display = 'none';
+      }
+  });
+}
+
+function updateChart() {
+  var chartData = getChartData();
+  var chartInstance = window.chartInstance;
+
+  if (chartInstance) {
+      chartInstance.data = chartData;
+      chartInstance.update();
+  } else {
+      var chart = document.getElementById('chart').getContext('2d');
+      window.chartInstance = new Chart(chart, {
+          type: 'bar',
+          data: chartData,
+          options: {
+              responsive: true,
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      stepSize: 1
+                  }
+              }
+          }
+      });
+  }
+}
+
+function getChartData() {
+  var stateLabels = [];
+  var stateData = [];
+
+  var rows = document.querySelectorAll('#data-table tbody tr');
+  rows.forEach(function(row) {
+      var state = row.cells[3].textContent.toUpperCase();
+      var index = stateLabels.indexOf(state);
+
+      if (index === -1) {
+          stateLabels.push(state);
+          stateData.push(1);
+      } else {
+          stateData[index]++;
+      }
+  });
+
+  return {
+      labels: stateLabels,
+      datasets: [{
+          label: 'Number of Societies',
+          data: stateData,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+      }]
+  };
+}
+
+
+
+
+
+ </script>
+
+
+
+  
+<table id="data-table">
+    
+    <thead>
+      <tr>
+        <th>Sr. No.</th>
+        <th>Name of Society</th>
+        <th>Address</th>
+        <th>State</th>
+        <th>District</th>
+        <th>Date of Registration</th>
+        <th>Area of Operation</th>
+        <th>Sector Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Saharayn Universal Multipurpose Society Limited</td>
+        <td>At & P.O. Railway Colony, Gorakkhpur, District-Gorakhpur Uttar Pradesh</td>
+        <td>UTTAR PRADESH</td>
+        <td>KUSHI NAGAR</td>
+        <td></td>
+        <td>Haryana, Uttar Pradesh, Himachal, Punjab</td>
+        <td>Credit</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>JMJ Multi State Agro Cooperative Society Ltd.</td>
+        <td>TC 48/1442-1, Sreeniva, Parekkati House, Chathankulangara Temple South, Puthurkkara, Ayyanthole, Thrissur 680003 Kerala</td>
+        <td>KERALA</td>
+        <td></td>
+        <td>13-10-2022</td>
+        <td>Bihar, West Bengal, Odisha</td>
+        <td>Agro</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Devbhoomi Agro Multi State Cooperative Society Ltd.</td>
+        <td>S/o Sateesh Kumar, Tejupur, Haridwar, Uttarakhand 247661</td>
+        <td>UTTARAKHAND</td>
+        <td></td>
+        <td>04-10-2022</td>
+        <td>Tamil Nadu, Karnataka</td>
+        <td>Agro</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Aarya Multi Specialty Cooperative Hospital and Hospital and Research Center ltd.</td>
+        <td>Gate No 165, Nimgaon (T), Madha, Solapur, 413210 Maharashtra</td>
+        <td>MAHARASHTRA</td>
+        <td></td>
+        <td>04-10-2022</td>
+        <td>Haryana, Punjab</td>
+        <td>Health/Hospital</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Agriculture Development Cooperative Federation</td>
+        <td>A/P 344, Lower Ground Floor, Sector 86, Preet City, SAS Nagar, Mohali, Punjab 160055</td>
+        <td>PUNJAB</td>
+        <td></td>
+        <td>22-09-2022</td>
+        <td>Manipur, Meghalaya</td>
+        <td>Federation</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Prosperity Multi State Housing Cooperative Society ltd.</td>
+        <td>Jayem Arcade 385 A6, First Floor, Kamarajar Road, Peelamedu, Coimbatore 641004</td>
+        <td>TAMIL NADU</td>
+        <td></td>
+        <td>15-09-2022</td>
+        <td>Maharashtra, Gujarat, Rajasthan</td>
+        <td>Housing</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Greenfield Multi State Agro Allied and Marketing Cooperative Society Ltd. (GMAAMCS)</td>
+        <td>Plot No 92, H.No 4-487, New Balaji Nagar Colony, Meerpet, Behind Janapriya Apartments, Hyderabad 500097 Telangana</td>
+        <td>TELANGANA</td>
+        <td></td>
+        <td>12-09-2022</td>
+        <td>Gujarat, Rajasthan</td>
+        <td>Agro</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Shri Sharda Agro Multi State Co-operative Society Ltd.</td>
+        <td>Shri Sharda Agro Multi State Co-operative Society Ltd.</td>
+        <td>UTTAR PRADESH</td>
+        <td></td>
+        <td>02-09-2022</td>
+        <td>Maharashtra, Goa, Karnataka, Andhra Pradesh</td>
+        <td>Agro</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Nature Delight Multi State Cooperative Dairy & Agro Products Ltd.</td>
+        <td>Kalas Gate, No 1189, A/P Kalas, Indapur, Pune 413105 Maharashtra</td>
+        <td>MAHARASHTRA</td>
+        <td></td>
+        <td>31-08-2022</td>
+        <td>Andhra Pradesh, Telangana</td>
+        <td>Agro</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>Travancore Cochin Tourism Cooperative Society Ltd</td>
+        <td>Idukki, Kerala 685584</td>
+        <td>KERALA</td>
+        <td>IDUKKI</td>
+        <td>31-08-2022</td>
+        <td>Madhya Pradesh, Chhattisgarh, Jharkhand, Bihar</td>
+        <td>Tourism</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>Janamaitheri Agricultural Cooperative Society Ltd.</td>
+        <td>Janamaitheri Agricultural Cooperative Society Ltd.</td>
+        <td>KERALA</td>
+        <td>THIRUVANANTHAPURAM</td>
+        <td>16-08-2022</td>
+        <td>Maharashtra, Gujarat, Rajasthan</td>
+        <td>Agro</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Swaraj Multipurpose Federation of Cooperative Society Ltd</td>
+        <td>Shop No 2, Yadav Market, Opposite Radha Ballav mandir, Palla Chowk, Tilak Road, Faridabad 121001 Haryana</td>
+        <td>HARYANA</td>
+        <td></td>
+        <td>16-08-2022</td>
+        <td>Gujarat, Rajasthan</td>
+        <td>Federation</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>Green Safe Multi State Agriculture Cooperative Society Ltd.</td>
+        <td>Coimbatore, Tamil Nadu</td>
+        <td>TAMIL NADU</td>
+        <td>COIMBATORE</td>
+        <td>12-08-2022</td>
+        <td>Haryana, Delhi</td>
+        <td>Agro</td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>Mango Growers Cooperative Society Ltd. (MANCO)</td>
+        <td>Visakhapatnam</td>
+        <td>ANDHRA PRADESH</td>
+        <td>VISAKHAPATNAM</td>
+        <td>10-08-2022</td>
+        <td>Haryana, Delhi, Uttar Pradesh</td>
+        <td>Agro</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>Srijan Krishi Vipnan Multi State Cooperative Society Ltd.</td>
+        <td>Lucknow</td>
+        <td>UTTAR PRADESH</td>
+        <td>LUCKNOW</td>
+        <td>29-07-2022</td>
+        <td>Uttarakhand, Himachal Pradesh, Jammu & Kashmir</td>
+        <td>Agro</td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>Kamal Multispeciality Cooperative Hospital & Research Center Ltd.</td>
+        <td>Beed Maharashtra</td>
+        <td>MAHARASHTRA</td>
+        <td>BEED</td>
+        <td>22-07-2022</td>
+        <td>Maharashtra, Gujarat, Rajasthan</td>
+        <td>Health/Hospital</td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>Nagebaba Multi Specialty Cooperative Hospital and Research Center Ltd.</td>
+        <td>Ahmednagar</td>
+        <td>MAHARASHTRA</td>
+        <td>AHMEDNAGAR</td>
+        <td>24-06-2022</td>
+        <td>Haryana, Punjab, Rajasthan</td>
+        <td>Health/Hospital</td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>The Urban Care Multi State Agro Cooperative Society Ltd.</td>
+        <td>Kerala</td>
+        <td>KERALA</td>
+        <td>KOZHIKODE</td>
+        <td>27-06-2022</td>
+        <td>Haryana, Rajasthan</td>
+        <td>Agro</td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>Bharathikerkar Fishermen Cooperative Ltd. (BHARATHIKERKAR)</td>
+        <td>Kerala</td>
+        <td>KERALA</td>
+        <td>THRISSUR</td>
+        <td>27-06-2022</td>
+        <td>Gujarat, Rajasthan, Haryana, Delhi</td>
+        <td>Fisheries</td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>Swayam Samruddhi Multi State Cooperative Society Ltd.</td>
+        <td>Hyderabad, Telangana</td>
+        <td>TELANGANA</td>
+        <td>HYDERABAD</td>
+        <td>21-06-2022</td>
+        <td>Haryana, Delhi, Uttar Pradesh</td>
+        <td>Multipurpose</td>
+      </tr><tr>
+        <td>21</td>
+        <td>Shree Sai Seva Multi Specialty Cooperative Hospital and Research center ltd.</td>
+        <td>Ahmednagar, Maharashtra</td>
+        <td>MAHARASHTRA</td>
+        <td>AHMEDNAGAR</td>
+        <td>15-06-2022</td>
+        <td>Maharashtra, Karnataka, Tamil Nadu</td>
+        <td>Health/Hospital</td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>Venkateshwara Multi State Multi Specialty Hospital and Research Ltd.</td>
+        <td>Maharashtra</td>
+        <td>MAHARASHTRA</td>
+        <td>NASIK</td>
+        <td>08-06-2022</td>
+        <td>Haryana, Gujarat, Maharashtra, Delhi</td>
+        <td>Health/Hospital</td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>Bharathimanass labour and Construction Cooperative Ltd.</td>
+        <td>Manipur</td>
+        <td>MANIPUR</td>
+        <td>BISHNUPUR</td>
+        <td>06-06-2022</td>
+        <td>West Bengal, Andhra Pradesh</td>
+        <td>Construction</td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>Kairali Agriculture Multi State Cooperative Society Ltd.</td>
+        <td>Kerala</td>
+        <td>KERALA</td>
+        <td>THRISSUR</td>
+        <td>06-06-2022</td>
+        <td>Maharashtra, Gujarat, Rajasthan</td>
+        <td>Agro</td>
+      </tr>
+      
+  
+    </tbody>
+  </table>
+
+  
+    
+
+  <canvas id="chart"></canvas>
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; Multi State Cooperative Societies ACT 2002. All rights reserved.</p>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="about.html">Services</a></li>
+        
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+  
+ 
+</body>
+</html>
